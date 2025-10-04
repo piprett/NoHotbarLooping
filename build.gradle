@@ -1,6 +1,5 @@
 plugins {
-    id 'fabric-loom' version '1.7-SNAPSHOT'
-    id 'io.github.juuxel.loom-quiltflower' version '1.10.0'
+    id 'fabric-loom' version '1.11-SNAPSHOT'
     id "com.modrinth.minotaur" version "2.+"
 }
 
@@ -48,13 +47,16 @@ java {
         toolchain.languageVersion = JavaLanguageVersion.of(21)
     }
 
-    archivesBaseName = project.archives_base_name
     withSourcesJar()
+}
+
+base {
+    archivesName = project.archives_base_name
 }
 
 jar {
     from("LICENSE") {
-        rename { "${it}_${project.archivesBaseName}" }
+        rename { "${it}_${project.base.archivesName}" }
     }
 }
 

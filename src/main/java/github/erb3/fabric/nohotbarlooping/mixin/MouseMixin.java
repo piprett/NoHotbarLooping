@@ -25,7 +25,7 @@ public class MouseMixin {
             return scrollUpdatesTo;
         }
 
-        int originalSlot = inv.selectedSlot;
+        int originalSlot = inv.getSelectedSlot();
         if (Math.abs(originalSlot - scrollUpdatesTo) > 1) {
             return originalSlot;
         }

@@ -10,6 +10,7 @@ import net.minecraft.client.util.InputUtil;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
 import net.minecraft.text.Text;
+import net.minecraft.util.Identifier;
 import org.lwjgl.glfw.GLFW;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,7 +18,6 @@ import org.slf4j.LoggerFactory;
 public class NoHotbarLooping implements ClientModInitializer {
     public static MinecraftClient client;
     private static KeyBinding keyBinding;
-    private static ToastManager toaster;
 
     @SuppressWarnings("SpellCheckingInspection")
     public static final String modid = "nohotbarlooping";
@@ -29,13 +29,13 @@ public class NoHotbarLooping implements ClientModInitializer {
     public void onInitializeClient() {
         logger.info("Hello from No Hotbar Looping!");
         client = MinecraftClient.getInstance();
-        toaster = client.getToastManager();
+        KeyBinding.Category category = KeyBinding.Category.create(Identifier.of(modid, "keybinding.category"));
 
         keyBinding = KeyBindingHelper.registerKeyBinding(new KeyBinding(
             modid + ".keybinding.name",
             InputUtil.Type.KEYSYM,
             GLFW.GLFW_KEY_PERIOD,
-            modid + ".keybinding.category"
+            category
         ));
 
         ClientTickEvents.END_CLIENT_TICK.register((client) -> {
@@ -60,6 +60,8 @@ public class NoHotbarLooping implements ClientModInitializer {
             title = translate("toast.enabled").getString();
         }
 
+        // Access the ToastManager here as the mod gets initialized before the field is assigned
+        ToastManager toaster = client.getToastManager();
         CustomToast oldToast = toaster.getToast(CustomToast.class, NoHotbarLooping.modid);
         if (oldToast != null) oldToast.remove();
         toaster.add(new CustomToast(item, title, "- NoHotbarLooping"));

@@ -4,7 +4,7 @@
   "nohotbarlooping.config.enabled.name": "Loop hotbar",
   "nohotbarlooping.config.enabled.description": "If your hotbar should loop when you scroll to the end of it",
   "nohotbarlooping.keybinding.name": "Toggle hotbar looping",
-  "nohotbarlooping.keybinding.category": "No Hotbar Looping",
+  "key.category.nohotbarlooping.keybinding.category": "No Hotbar Looping",
   "nohotbarlooping.toast.enabled": "Hotbar looping disabled",
   "nohotbarlooping.toast.disabled": "Hotbar looping enabled"
 }

@@ -1,10 +1,9 @@
 package github.erb3.fabric.nohotbarlooping;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
+import net.minecraft.client.gl.RenderPipelines;
 import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.toast.Toast;
 import net.minecraft.client.toast.ToastManager;
 import net.minecraft.item.Item;
@@ -15,8 +14,8 @@ import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.NotNull;
 
 public class CustomToast implements Toast {
-    public static final int titleColor = 0xFFFFFF;
-    public static final int textColor = 0xD3D3D3;
+    public static final int titleColor = 0xFFFFFFFF;
+    public static final int textColor = 0xFFD3D3D3;
 
     private final ItemStack icon;
     private final Text title;
@@ -55,8 +54,7 @@ public class CustomToast implements Toast {
 
     @Override
     public void draw(DrawContext context, TextRenderer textRenderer, long currentTime) {
-        RenderSystem.setShaderColor(1, 1, 1, 1);
-        context.drawGuiTexture(RenderLayer::getGuiTextured, Identifier.ofVanilla("toast/advancement"), 0, 0, getWidth(), getHeight());
+        context.drawGuiTexture(RenderPipelines.GUI_TEXTURED, Identifier.ofVanilla("toast/advancement"), 0, 0, getWidth(), getHeight());
 
         int x = 28;
         MinecraftClient mc = MinecraftClient.getInstance();
